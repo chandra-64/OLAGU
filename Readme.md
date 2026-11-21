@@ -59,10 +59,11 @@ OLAGU/
 
 
 # Development stages 
-
+```
 Stage 1	Complete frontend
 Stage 2	File importing and document processing
 Stage 3	Local storage and history
 Stage 4	Offline AI engine
 Stage 5	Embeddings and RAG
 Stage 6	Security, optimization and testing
+```

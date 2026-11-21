@@ -7,7 +7,7 @@ OLAGU is an offline-first Android application designed for fully on-device artif
 
 ./gradlew installDebug && adb shell monkey -p com.olagu.ai 1
 
-### after connecting youtr phone through usb
+### after connecting your phone through usb
 
 
 ## Current Project Structure

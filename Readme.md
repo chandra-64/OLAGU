@@ -3,10 +3,11 @@
 
 OLAGU is an offline-first Android application designed for fully on-device artificial intelligence inference, document parsing, and retrieval-augmented generation (RAG). Operating entirely on local hardware, OLAGU ensures total data privacy, deterministic execution, and complete independence from cloud services and network connectivity .
 
-# For contributors who like to test in local use 
+#### For contributors who like to test in local, use 
 
 ./gradlew installDebug && adb shell monkey -p com.olagu.ai 1
-# after connecting youtr phone through usb
+
+### after connecting youtr phone through usb
 
 
 ## Current Project Structure
@@ -55,11 +56,9 @@ OLAGU/
 ├── gradle.properties
 └── gradlew
 ```
-## Contrubutors keep in mind 
-
-
-# Development stages 
-```
+# Contributors keep in mind 
+## Development stages 
+```text
 Stage 1	Complete frontend
 Stage 2	File importing and document processing
 Stage 3	Local storage and history

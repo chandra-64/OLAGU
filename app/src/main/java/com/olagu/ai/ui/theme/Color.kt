@@ -2,24 +2,32 @@ package com.olagu.ai.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Pure black and white palette for OLAGU AI
+// Pure black and white luxury monochrome palette for OLAGU AI
 val PureBlack = Color(0xFF000000)
 val PureWhite = Color(0xFFFFFFFF)
 
-// Border variants
-val BorderWhiteSubtle = Color(0x33FFFFFF)       // 20% white for subtle borders/dividers
-val BorderWhiteMedium = Color(0x66FFFFFF)       // 40% white for inactive outlined cards
-val BorderWhiteActive = Color(0xFFFFFFFF)       // 100% white for active/selected borders
-
-// Surface variants
+// Surface variants - ultra dark luxury layers
 val SurfaceBlack = Color(0xFF000000)
-val SurfaceCard = Color(0xFF080808)            // Deep minimal card fill
-val SurfaceCardHover = Color(0xFF141414)       // Interactive state
-val SurfaceSelected = Color(0xFF1C1C1E)        // Selected item fill
+val SurfaceCard = Color(0xFF0A0A0A)
+val SurfaceCardElevated = Color(0xFF121212)
+val SurfaceCardHover = Color(0xFF18181A)
+val SurfaceSelected = Color(0xFF202024)
+val SurfaceInput = Color(0xFF0D0D0F)
 
-// Text colors
-val TextPrimary = Color(0xFFFFFFFF)
-val TextSecondary = Color(0xFFA1A1AA)          // Muted secondary text
-val TextTertiary = Color(0xFF71717A)           // Subtle tertiary text
-val TextMuted = Color(0xFF71717A)              // Muted text
-val TextPlaceholder = Color(0xFF52525B)        // Placeholder text
+// Borders
+val BorderWhiteSubtle = Color(0x1FFFFFFF)       // ~12% white for dividers and subtle outlines
+val BorderWhiteMedium = Color(0x38FFFFFF)       // ~22% white for active cards and inputs
+val BorderWhiteActive = Color(0x8AFFFFFF)       // ~54% white for focused/selected items
+val BorderWhiteGlow = Color(0xFFFFFFFF)         // 100% white crisp accents
+
+// Text variants
+val TextPrimary = Color(0xFFFFFFFF)             // High-contrast primary white
+val TextSecondary = Color(0xFFA1A1AA)           // Neutral gray for descriptions
+val TextTertiary = Color(0xFF71717A)            // Muted metadata
+val TextMuted = Color(0xFF52525B)               // Very subtle timestamps / labels
+val TextPlaceholder = Color(0xFF4A4A52)
+
+// Indicators
+val OfflineGreen = Color(0xFF34C759)
+val OfflineGreenBg = Color(0xFF0D2413)
+val OfflineGreenBorder = Color(0x6634C759)

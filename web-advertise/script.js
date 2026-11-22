@@ -278,12 +278,15 @@ function initPhoneCursorTracking() {
   const chassis = document.querySelector('.phone-device-chassis');
   if (!chassis) return;
 
+  const inputField = document.getElementById('mockInputField');
+
   let targetRotateX = 0;
   let targetRotateY = 0;
   let currentRotateX = 0;
   let currentRotateY = 0;
   let rafId = null;
   let isVisible = false;
+  let isInteracting = false; // Set to true when user clicks inside phone
 
   const maxRotateX = 14; // vertical tilt degrees
   const maxRotateY = 16; // horizontal turn degrees
@@ -318,7 +321,25 @@ function initPhoneCursorTracking() {
   function handlePointerMove(clientX, clientY) {
     if (!isVisible) return;
 
+    // When user clicked inside the phone to interact, lock tilt completely to 0 (flat & steady)
+    if (isInteracting) {
+      targetRotateX = 0;
+      targetRotateY = 0;
+      startAnimation();
+      return;
+    }
+
     const rect = chassis.getBoundingClientRect();
+    const isCursorInsideChassis = (
+      clientX >= rect.left &&
+      clientX <= rect.right &&
+      clientY >= rect.top &&
+      clientY <= rect.bottom
+    );
+
+    // Mitigate animation strength when cursor hovers directly over the phone
+    const dampingFactor = isCursorInsideChassis ? 0.35 : 1.0;
+
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
 
@@ -333,8 +354,8 @@ function initPhoneCursorTracking() {
 
     // When cursor is right (normX > 0) -> face turns right (rotateY > 0)
     // When cursor is above (normY < 0) -> face tilts up (rotateX > 0)
-    targetRotateY = normX * maxRotateY;
-    targetRotateX = -normY * maxRotateX;
+    targetRotateY = normX * maxRotateY * dampingFactor;
+    targetRotateX = -normY * maxRotateX * dampingFactor;
 
     startAnimation();
   }
@@ -343,6 +364,33 @@ function initPhoneCursorTracking() {
     targetRotateX = 0;
     targetRotateY = 0;
     startAnimation();
+  }
+
+  // When user clicks inside phone, stop / stabilize tilt animation
+  chassis.addEventListener('pointerdown', () => {
+    isInteracting = true;
+    handleReset();
+  });
+
+  // When user clicks outside phone, resume normal cursor tracking
+  document.addEventListener('pointerdown', (e) => {
+    if (!chassis.contains(e.target)) {
+      isInteracting = false;
+    }
+  });
+
+  // When cursor leaves phone chassis, release interaction lock (unless still typing in input)
+  chassis.addEventListener('mouseleave', () => {
+    const isInputFocused = inputField && document.activeElement === inputField;
+    if (!isInputFocused) {
+      isInteracting = false;
+    }
+  });
+
+  if (inputField) {
+    inputField.addEventListener('blur', () => {
+      isInteracting = false;
+    });
   }
 
   window.addEventListener('mousemove', (e) => {

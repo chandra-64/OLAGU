@@ -21,7 +21,7 @@ function initMobilePhoneAnimation() {
   const modeBtnImage = document.getElementById('modeBtnImage');
   const activeTitle = document.getElementById('mockActiveModeTitle');
   const docBanner = document.getElementById('mockDocBanner');
-  const viewRag = document.getElementById('mockChatScroll');
+  const viewRag = chatScroll;
   const viewChatbot = document.getElementById('viewChatbot');
   const viewImage = document.getElementById('viewImage');
 
@@ -54,7 +54,7 @@ function initMobilePhoneAnimation() {
     rag: {
       btn: modeBtnRag,
       title: 'Documents RAG',
-      placeholder: 'Prase the document..',
+      placeholder: 'Parse the document...',
       showDoc: true,
       view: viewRag,
       focus: false
@@ -131,7 +131,8 @@ function initMobilePhoneAnimation() {
       <div class="bubble-content ${type}-content">${contentHTML}</div>
     `;
     container.appendChild(msg);
-    container.scrollTop = container.scrollHeight;
+    const scrollContainer = container.closest('.compose-chat-area') || container;
+    scrollContainer.scrollTop = scrollContainer.scrollHeight;
   }
 
   function handleChatbotSend() {
@@ -262,7 +263,7 @@ function initMobilePhoneAnimation() {
     });
   }, { threshold: 0.35 });
 
-  const phoneSection = document.querySelector('.mobile-showcase-wrapper');
+  const phoneSection = document.querySelector('.phone-stage');
   if (phoneSection) {
     observer.observe(phoneSection);
   }

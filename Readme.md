@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="web-advertise/favicon.jpeg" alt="OLAGU Symbol" width="160" />
+</p>
+
 # OLAGU
 
 

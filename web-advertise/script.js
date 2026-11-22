@@ -67,24 +67,21 @@ function initMobilePhoneAnimation() {
       title: 'Chatbot',
       placeholder: 'Type a message...',
       showDoc: false,
-      view: viewChatbot,
-      focus: true
+      view: viewChatbot
     },
     image: {
       btn: modeBtnImage,
       title: 'Image Creation',
       placeholder: 'Describe an image...',
       showDoc: false,
-      view: viewImage,
-      focus: true
+      view: viewImage
     },
     rag: {
       btn: modeBtnRag,
       title: 'Documents RAG',
       placeholder: 'Parse the document...',
       showDoc: true,
-      view: viewRag,
-      focus: false
+      view: viewRag
     }
   };
 
@@ -102,7 +99,9 @@ function initMobilePhoneAnimation() {
     if (inputField) {
       inputField.placeholder = config.placeholder;
       inputField.value = '';
-      if (config.focus) inputField.focus();
+      if (document.activeElement === inputField) {
+        inputField.blur();
+      }
     }
 
     [viewRag, viewChatbot, viewImage].forEach(view => {
@@ -122,6 +121,9 @@ function initMobilePhoneAnimation() {
 
   if (menuBtn) {
     menuBtn.addEventListener('click', () => {
+      if (inputField && document.activeElement === inputField) {
+        inputField.blur();
+      }
       if (sidebarDrawer) sidebarDrawer.classList.toggle('open');
     });
   }

@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initMobilePhoneAnimation();
+  initPhoneCursorTracking();
 });
 
 function initMobilePhoneAnimation() {
@@ -142,7 +143,7 @@ function initMobilePhoneAnimation() {
     appendBubble(chatbotMessagesList, 'user', escapeHTML(text));
 
     const clean = text.toLowerCase().replace(/[^a-z]/g, '');
-    let replyText = 'Download an app';
+    let replyText = 'Download the app';
     if (!chatbotHasGreeted && (clean === 'hello' || clean === 'hi')) {
       replyText = 'Hello, how can I help you?';
       chatbotHasGreeted = true;
@@ -160,7 +161,7 @@ function initMobilePhoneAnimation() {
     appendBubble(imageMessagesList, 'user', escapeHTML(text));
 
     setTimeout(() => {
-      appendBubble(imageMessagesList, 'assistant', 'Download an app');
+      appendBubble(imageMessagesList, 'assistant', 'Download the app');
     }, 400);
   }
 
@@ -172,7 +173,7 @@ function initMobilePhoneAnimation() {
     appendBubble(chatScroll, 'user', escapeHTML(text), 'dynamic-extra-msg');
 
     setTimeout(() => {
-      appendBubble(chatScroll, 'assistant', 'Download an app', 'dynamic-extra-msg');
+      appendBubble(chatScroll, 'assistant', 'Download the app', 'dynamic-extra-msg');
     }, 350);
   }
 
@@ -271,4 +272,103 @@ function initMobilePhoneAnimation() {
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function initPhoneCursorTracking() {
+  const chassis = document.querySelector('.phone-device-chassis');
+  if (!chassis) return;
+
+  let targetRotateX = 0;
+  let targetRotateY = 0;
+  let currentRotateX = 0;
+  let currentRotateY = 0;
+  let rafId = null;
+  let isVisible = false;
+
+  const maxRotateX = 14; // vertical tilt degrees
+  const maxRotateY = 16; // horizontal turn degrees
+  const lerpFactor = 0.08; // smooth spring easing
+
+  function update() {
+    currentRotateX += (targetRotateX - currentRotateX) * lerpFactor;
+    currentRotateY += (targetRotateY - currentRotateY) * lerpFactor;
+
+    // Apply 3D perspective rotation so phone faces the cursor
+    chassis.style.transform = `perspective(1200px) rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg)`;
+
+    // Physically accurate shadow shifting opposite to the tilt direction
+    const shadowX = (-currentRotateY * 1.6).toFixed(1);
+    const shadowY = (35 - currentRotateX * 1.4).toFixed(1);
+    chassis.style.boxShadow = `${shadowX}px ${shadowY}px 70px -15px rgba(0, 0, 0, 0.95), 0 0 40px rgba(255, 255, 255, 0.04)`;
+
+    const delta = Math.abs(targetRotateX - currentRotateX) + Math.abs(targetRotateY - currentRotateY);
+    if (delta > 0.01) {
+      rafId = requestAnimationFrame(update);
+    } else {
+      rafId = null;
+    }
+  }
+
+  function startAnimation() {
+    if (!rafId) {
+      rafId = requestAnimationFrame(update);
+    }
+  }
+
+  function handlePointerMove(clientX, clientY) {
+    if (!isVisible) return;
+
+    const rect = chassis.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const deltaX = clientX - centerX;
+    const deltaY = clientY - centerY;
+
+    const radiusX = Math.max(window.innerWidth * 0.45, 380);
+    const radiusY = Math.max(window.innerHeight * 0.45, 380);
+
+    const normX = Math.max(-1, Math.min(1, deltaX / radiusX));
+    const normY = Math.max(-1, Math.min(1, deltaY / radiusY));
+
+    // When cursor is right (normX > 0) -> face turns right (rotateY > 0)
+    // When cursor is above (normY < 0) -> face tilts up (rotateX > 0)
+    targetRotateY = normX * maxRotateY;
+    targetRotateX = -normY * maxRotateX;
+
+    startAnimation();
+  }
+
+  function handleReset() {
+    targetRotateX = 0;
+    targetRotateY = 0;
+    startAnimation();
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    handlePointerMove(e.clientX, e.clientY);
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', handleReset);
+
+  // Touch support for touch devices
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', handleReset);
+
+  // Only track when mobile chassis is visible in the viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      isVisible = entry.isIntersecting;
+      if (!isVisible) {
+        handleReset();
+      }
+    });
+  }, { threshold: 0.1 });
+
+  observer.observe(chassis);
 }

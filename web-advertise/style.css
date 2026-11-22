@@ -137,84 +137,41 @@ body {
   align-items: center;
 }
 
-/* Hero Brand Title (OLAGU) Premium Animation */
+/* Hero Brand Title (OLAGU) — Continuous Back-and-Forth Light Sheen */
 .hero-brand-name {
   font-family: var(--font-display);
-  font-size: clamp(60px, 10.5vw, 116px);
-  font-weight: 800;
-  letter-spacing: 0.05em;
+  font-size: clamp(56px, 10vw, 112px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  line-height: 0.98;
-  margin-bottom: 16px;
-  position: relative;
+  line-height: 1;
+  margin-bottom: 18px;
   display: inline-block;
   user-select: none;
 
-  /* Premium metallic liquid-platinum / multi-grey gradient */
   background: linear-gradient(
-    120deg,
-    #52525B 0%,
-    #8E8E93 16%,
-    #FFFFFF 30%,
-    #E5E5EA 44%,
-    #636366 58%,
-    #D1D1D6 72%,
-    #FFFFFF 86%,
-    #71717A 100%
+    110deg,
+    #86868B 0%,
+    #D1D1D6 40%,
+    #FFFFFF 50%,
+    #D1D1D6 60%,
+    #86868B 100%
   );
-  background-size: 200% auto;
+  background-size: 250% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  /* Ambient silver luminescence glow */
-  filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.24));
-
-  /* Continuous metallic light sweep */
-  animation: heroBrandShimmer 6s ease-in-out infinite alternate;
-
-  transition: transform var(--transition-medium), filter var(--transition-medium);
+  animation: heroSubtleSheen 3s ease-in-out infinite alternate;
 }
 
-.hero-brand-name::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 140%;
-  height: 140%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(161, 161, 166, 0.05) 45%,
-    transparent 70%
-  );
-  filter: blur(40px);
-  pointer-events: none;
-  z-index: -1;
-  animation: heroBrandAura 4s ease-in-out infinite alternate;
-}
-
-@keyframes heroBrandShimmer {
+@keyframes heroSubtleSheen {
   0% {
-    background-position: 0% center;
+    background-position: 100% 0;
   }
   100% {
-    background-position: 200% center;
+    background-position: 0% 0;
   }
-}
-
-@keyframes heroBrandAura {
-  0% {
-    opacity: 0.6;
-    transform: translate(-50%, -50%) scale(0.85);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.15);
-  }
-}
-
+}   
 .hero-eyebrow {
   font-family: var(--font-text);
   font-size: clamp(12px, 1.2vw, 13px);
@@ -324,7 +281,7 @@ body {
 }
 
 .brand-symbol-img {
-  max-width: 160px;
+  max-width: 250px;
   width: 100%;
   height: auto;
   display: inline-block;
@@ -420,6 +377,8 @@ body {
 .phone-stage {
   display: flex;
   justify-content: center;
+  perspective: 1200px;
+  perspective-origin: center center;
 }
 
 .phone-device-chassis {
@@ -431,11 +390,23 @@ body {
   padding: 10px;
   box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.95), 0 0 40px rgba(255, 255, 255, 0.04);
   position: relative;
-  transition: transform var(--transition-medium);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
 }
 
-.phone-device-chassis:hover {
-  transform: translateY(-4px);
+.phone-device-chassis::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 48px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 30;
 }
 
 .camera-punchhole {

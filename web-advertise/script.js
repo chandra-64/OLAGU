@@ -1,9 +1,35 @@
 // OLAGU On-Device Intelligence — Mobile Interface Animation & Interaction
 
 document.addEventListener('DOMContentLoaded', () => {
+  initNewsTicker();
   initMobilePhoneAnimation();
   initPhoneCursorTracking();
 });
+
+function initNewsTicker() {
+  const container = document.querySelector('.ticker-track-container');
+  if (!container) return;
+
+  const templateItem = container.querySelector('.ticker-content');
+  if (!templateItem) return;
+
+  // Clear container to assemble duplicate tracks programmatically
+  container.innerHTML = '';
+
+  const track1 = document.createElement('div');
+  track1.className = 'ticker-track';
+
+  for (let i = 0; i < 4; i++) {
+    track1.appendChild(templateItem.cloneNode(true));
+  }
+
+  // Clone track1 for the seamless infinite loop
+  const track2 = track1.cloneNode(true);
+  track2.setAttribute('aria-hidden', 'true');
+
+  container.appendChild(track1);
+  container.appendChild(track2);
+}
 
 function initMobilePhoneAnimation() {
   const menuBtn = document.getElementById('mockMenuButton');

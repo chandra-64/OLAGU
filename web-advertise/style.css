@@ -70,6 +70,107 @@ body {
   display: inline-block;
 }
 
+/* Top News Ticker / Marquee Bar */
+.news-ticker-bar {
+  background: #09090b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  position: relative;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  z-index: 10000;
+  user-select: none;
+}
+
+.ticker-track-container {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000000 4%, #000000 96%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000000 4%, #000000 96%, transparent 100%);
+}
+
+.ticker-track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 100%;
+  justify-content: space-around;
+  animation: tickerSlide 26s linear infinite;
+  will-change: transform;
+}
+
+.ticker-track-container:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes tickerSlide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.ticker-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px;
+}
+
+.ticker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-text);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #F5F5F7;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.ticker-pulse-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #FF9F0A; /* Apple amber warning/development dot */
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 159, 10, 0.7);
+  animation: tickerPulse 2s ease-in-out infinite;
+}
+
+@keyframes tickerPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+
+.ticker-text {
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: 400;
+  color: #D1D1D6;
+  letter-spacing: -0.01em;
+}
+
+.ticker-separator {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 10px;
+}
+
 /* Navigation Bar */
 .nav-bar {
   position: sticky;
@@ -1020,6 +1121,20 @@ body {
 }
 
 @media (max-width: 768px) {
+  .news-ticker-bar {
+    height: 32px;
+  }
+  .ticker-content {
+    gap: 8px;
+    padding: 0 16px;
+  }
+  .ticker-badge {
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+  .ticker-text {
+    font-size: 11px;
+  }
   .nav-menu {
     display: none;
   }

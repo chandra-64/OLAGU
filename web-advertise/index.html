@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OLAGU — offline On-Device Intelligence</title>
+  <meta name="description" content="OLAGU is an offline-first Android application designed for 100% on-device AI inference, document parsing, and retrieval-augmented generation. Zero cloud. Total privacy.">
+  <link rel="icon" type="image/jpeg" href="favicon.jpeg">
+  <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="nav-bar">
+    <div class="nav-content">
+      <a href="#" class="nav-brand">
+        <span class="brand-title">OLAGU</span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#overview">Overview</a>
+        <a href="#features">Mobile Interface</a>
+        <a href="#tech-specs">Tech Specs</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="overview">
+      <div class="container hero-container">
+        <h1 class="hero-brand-name">OLAGU</h1>
+        <div class="hero-eyebrow">On-Device AI for Android</div>
+        <h1 class="hero-title">
+          Offline intelligence.<br>
+          <span class="text-gradient">That runs completely on your device</span>
+        </h1>
+        <p class="hero-subhead">
+          OLAGU brings local neural inference and edge retrieval-augmented generation directly into your hardware for uncompromised privacy.
+        </p>
+
+        <div class="hero-cta-row">
+          <a href="#features" class="btn-apple-primary">Experience Interface</a>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <span class="metric-value">0%</span>
+            <span class="metric-label">Data uploaded to cloud</span>
+          </div>
+          <div class="metric-separator"></div>
+          <div class="metric-item">
+            <span class="metric-value">100%</span>
+            <span class="metric-label">Runs on your device</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & Mobile Interface Section -->
+    <section class="section-container" id="features">
+      <div class="container">
+        <div class="section-intro">
+          <h2 class="section-headline">Your data your privacy</h2>
+          <p class="section-description">
+            Olagu developed in the intention of protecting your privacy and operating independently of the internet
+          </p>
+        </div>
+
+        <div>
+          <div>
+            <h3 class="narrative-title">Application interface.</h3>
+            <p class="narrative-body">
+              Interface which lets you focus more.
+            </p>
+          </div>
+
+          <!-- Realistic Android Phone Chassis -->
+          <div class="phone-stage">
+            <div class="phone-device-chassis">
+              <!-- Android Hardware Elements -->
+              <div class="camera-punchhole"></div>
+
+              <!-- Android Screen Content (Jetpack Compose Replica) -->
+              <div class="phone-screen-frame">
+
+                <!-- Android System Status Bar -->
+                <div class="android-status-bar">
+                  <span class="android-time">09:41</span>
+                  <div class="android-sys-icons"></div>
+                </div>
+
+                <!-- Jetpack Compose: TopHeader.kt -->
+                <div class="compose-top-header">
+                  <div class="header-left-group">
+                    <button class="compose-icon-button" id="mockMenuButton" title="Open Drawer">
+                      <svg class="canvas-menu-icon" width="20" height="20" viewBox="0 0 20 20">
+                        <line x1="0" y1="5" x2="20" y2="5" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="0" y1="10" x2="14.4" y2="10" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="0" y1="15" x2="20" y2="15" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                    <span class="compose-header-title" id="mockActiveModeTitle">Documents RAG</span>
+                  </div>
+                </div>
+
+                <!-- Document Context Banner -->
+                <div class="compose-doc-banner" id="mockDocBanner">
+                  <svg class="doc-svg-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                  <span class="doc-banner-text">module3.pdf</span>
+                </div>
+
+                <!-- Jetpack Compose Chat Area: Documents RAG View -->
+                <div class="compose-chat-area" id="mockChatScroll">
+
+                  <!-- Initial Assistant Greeting -->
+                  <div class="compose-message-bubble assistant">
+                    <span class="bubble-meta">OLAGU • 09:41 AM</span>
+                  </div>
+
+                  <!-- Dynamic User Message -->
+                  <div class="compose-message-bubble user animate-in" id="mockUserMessage">
+                    <span class="bubble-meta">09:41 AM</span>
+                    <div class="bubble-content user-content" id="mockUserBubbleText">
+                      Explain TCP connection and 3 way handshake according to the document i sent.
+                    </div>
+                  </div>
+
+                  <!-- Kotlin Compose ThinkingBubble.kt -->
+                  <div class="compose-thinking-bubble" id="mockThinkingBubble">
+                    <div class="compose-spinner"></div>
+                    <span class="thinking-text">OLAGU is thinking...</span>
+                  </div>
+
+                  <!-- Dynamic Assistant Response -->
+                  <div class="compose-message-bubble assistant" id="mockAssistantMessage">
+                    <span class="bubble-meta">09:41 AM</span>
+                    <div class="bubble-content assistant-content">
+                      <p id="mockAssistantText">
+                        Based on the pdf you sent:<br><br>
+                        <strong>TCP 3-Way Handshake:</strong><br>
+                        1. <strong>SYN:</strong> Client sends a SYN segment with an initial sequence number to initiate the connection.<br>
+                        2. <strong>SYN-ACK:</strong> Server acknowledges with an ACK and responds with its own SYN segment.<br>
+                        3. <strong>ACK:</strong> Client sends an ACK segment back. The full-duplex connection is established and data transmission begins.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Chatbot Mode View -->
+                <div class="compose-chat-area" id="viewChatbot" style="display: none;">
+                  <div class="chatbot-welcome-state" id="chatbotWelcome">
+                    <h4 class="chatbot-welcome-heading">Hello user !</h4>
+                  </div>
+                  <div class="chatbot-messages-list" id="chatbotMessagesList"></div>
+                </div>
+
+                <!-- Image Creation Mode View -->
+                <div class="compose-chat-area" id="viewImage" style="display: none;">
+                  <div class="image-welcome-state" id="imageWelcome">
+                    <h4 class="image-welcome-heading">What image is in your mind right now?</h4>
+                  </div>
+                  <div class="image-messages-list" id="imageMessagesList"></div>
+                </div>
+
+                <!-- Kotlin Jetpack Compose: InputBar.kt -->
+                <div class="compose-input-bar">
+                  <div class="compose-text-field">
+                    <input type="text" class="compose-real-input" id="mockInputField" placeholder="Ask OLAGU anything..." autocomplete="off">
+                  </div>
+                  <button class="compose-send-button" id="mockSendButton" title="Send message">
+                    <span class="send-arrow">↑</span>
+                  </button>
+                </div>
+
+                <!-- Android Gesture Navigation Bar -->
+                <div class="android-nav-bar">
+                  <div class="gesture-handle"></div>
+                </div>
+
+                <!-- Exact Kotlin AppSidebar.kt Drawer Replica (Slide-in) -->
+                <div class="compose-sidebar-drawer" id="mockSidebarDrawer">
+                  <div class="sidebar-header-row">
+                    <span class="sidebar-app-name">OLAGU</span>
+                    <button class="sidebar-close-btn" id="mockSidebarClose">✕</button>
+                  </div>
+
+                  
+
+                  <div class="sidebar-modes-list">
+                    <div class="sidebar-mode-item active" id="modeBtnRag">
+                      <svg class="mode-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                      </svg>
+                      <span class="mode-title">Documents RAG</span>
+                    </div>
+                    <div class="sidebar-mode-item" id="modeBtnChatbot">
+                      <svg class="mode-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                      </svg>
+                      <span class="mode-title">Chatbot</span>
+                    </div>
+                    <div class="sidebar-mode-item" id="modeBtnImage">
+                      <svg class="mode-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                      </svg>
+                      <span class="mode-title">Image Creation</span>
+                    </div>
+                  </div>
+
+                  <div class="sidebar-date-divider">
+                    <span>History</span>
+                  </div>
+                  <div class="sidebar-history-list">
+                    <div class="history-entry active">today</div>
+                    
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-container" id="tech-specs">
+      <div class="container">
+        <div class="section-intro">
+          <h2 class="section-headline">Engineered for uncompromising privacy.</h2>
+          <p class="section-description">
+            Direct comparison between traditional cloud AI assistants and OLAGU's sovereign Android design.
+          </p>
+        </div>
+
+        <div class="tech-table-container">
+          <table class="tech-table">
+            <thead>
+              <tr>
+                <th class="col-feature">Specification</th>
+                <th class="col-cloud">Standard Cloud AI</th>
+                <th class="col-olagu">OLAGU Local Engine</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="feature-title">Data Privacy &amp; Boundary</td>
+                <td class="text-dim">Transmitted to third-party cloud data centers</td>
+                <td class="text-strong">100% retained within device hardware</td>
+              </tr>
+              <tr>
+                <td class="feature-title">Offline Execution</td>
+                <td class="text-dim">Completely disabled without connectivity</td>
+                <td class="text-strong">Fully functional anytime, anywhere</td>
+              </tr>
+              <tr>
+                <td class="feature-title">Operational Cost</td>
+                <td class="text-dim">Recurring API fees and monthly subscriptions</td>
+                <td class="text-strong">Zero subscription fees; uses your device chip</td>
+              </tr>
+              <tr>
+                <td class="feature-title">Document Parsing</td>
+                <td class="text-dim">Ingested and stored on unknown cloud servers</td>
+                <td class="text-strong">Parsed locally into encrypted vector memory</td>
+              </tr>
+              <tr>
+                <td class="feature-title">Latency Model</td>
+                <td class="text-dim">Unpredictable (subject to network &amp; queues)</td>
+                <td class="text-strong">Deterministic on-device compute latency</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Development Phases Section (Mapped to Readme) -->
+    <section class="section-container bg-subtle" id="roadmap">
+      <div class="container">
+        <p class="dev-status-text">Still in development.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-meta-block">
+        <div class="footer-brand-line">
+          <span class="footer-logo">OLAGU</span>
+          <span class="footer-desc">Offline-first on-device AI and sovereign RAG for Android.</span>
+        </div>
+      </div>
+
+      <div class="footer-legal-bar">
+        <div class="footer-links">
+          <a href="#overview">Overview</a>
+          <a href="#features">Mobile Interface</a>
+          <a href="#tech-specs">Specs</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

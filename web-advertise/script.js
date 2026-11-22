@@ -85,6 +85,16 @@ function initMobilePhoneAnimation() {
     }
   };
 
+  function adjustInputHeight() {
+    if (!inputField) return;
+    inputField.style.height = 'auto';
+    const minHeight = 18;
+    const maxHeight = 76;
+    const targetHeight = Math.min(Math.max(inputField.scrollHeight, minHeight), maxHeight);
+    inputField.style.height = targetHeight + 'px';
+    inputField.style.overflowY = inputField.scrollHeight > maxHeight ? 'auto' : 'hidden';
+  }
+
   function selectMode(mode) {
     currentMode = mode;
     const config = modeConfigs[mode] || modeConfigs.rag;
@@ -99,6 +109,7 @@ function initMobilePhoneAnimation() {
     if (inputField) {
       inputField.placeholder = config.placeholder;
       inputField.value = '';
+      adjustInputHeight();
       if (document.activeElement === inputField) {
         inputField.blur();
       }
@@ -148,6 +159,7 @@ function initMobilePhoneAnimation() {
     if (!inputField) return '';
     const text = inputField.value.trim();
     inputField.value = '';
+    adjustInputHeight();
     return text;
   }
 
@@ -218,7 +230,21 @@ function initMobilePhoneAnimation() {
 
   if (inputField) {
     inputField.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') handleSend();
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSend();
+      }
+    });
+    inputField.addEventListener('input', adjustInputHeight);
+    adjustInputHeight();
+  }
+
+  const textFieldContainer = document.querySelector('.compose-text-field');
+  if (textFieldContainer && inputField) {
+    textFieldContainer.addEventListener('click', (e) => {
+      if (e.target !== inputField) {
+        inputField.focus();
+      }
     });
   }
 
@@ -235,7 +261,10 @@ function initMobilePhoneAnimation() {
     userBubble.style.display = 'none';
     thinkingBubble.style.display = 'none';
     assistantBubble.style.display = 'none';
-    if (inputField) inputField.value = '';
+    if (inputField) {
+      inputField.value = '';
+      adjustInputHeight();
+    }
     if (sidebarDrawer) sidebarDrawer.classList.remove('open');
 
     await sleep(600);
@@ -245,8 +274,12 @@ function initMobilePhoneAnimation() {
 
     if (inputField) {
       inputField.value = '';
+      adjustInputHeight();
       for (let i = 0; i < queryText.length; i++) {
         inputField.value += queryText[i];
+        adjustInputHeight();
+        inputField.scrollTop = inputField.scrollHeight;
+        inputField.scrollLeft = inputField.scrollWidth;
         await sleep(20);
       }
     }
@@ -261,7 +294,10 @@ function initMobilePhoneAnimation() {
       sendButton.style.backgroundColor = '#FFFFFF';
     }
 
-    if (inputField) inputField.value = '';
+    if (inputField) {
+      inputField.value = '';
+      adjustInputHeight();
+    }
 
     userBubble.style.display = 'flex';
     userBubble.classList.add('animate-in');
